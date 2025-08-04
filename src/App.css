@@ -1,0 +1,399 @@
+/* アプリケーション全体のスタイル */
+.app {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.app-header {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 1.5rem 2rem;
+  text-align: center;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+}
+
+.app-header h1 {
+  margin: 0 0 0.5rem 0;
+  color: #2d3748;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.app-header p {
+  margin: 0;
+  color: #718096;
+  font-size: 1.1rem;
+}
+
+.app-main {
+  display: flex;
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* サイドバー */
+.sidebar {
+  width: 320px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* メインコンテンツ */
+.main-content {
+  flex: 1;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.main-content.transparent-mode {
+  background: transparent;
+  box-shadow: none;
+}
+
+.grid-container {
+  padding: 1rem;
+  min-height: 600px;
+}
+
+/* 画像アップローダー */
+.image-uploader {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.drop-zone {
+  border: 3px dashed #cbd5e0;
+  border-radius: 8px;
+  padding: 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: #f7fafc;
+}
+
+.drop-zone:hover {
+  border-color: #667eea;
+  background: #edf2f7;
+}
+
+.upload-icon {
+  color: #667eea;
+  margin-bottom: 1rem;
+}
+
+.drop-zone p {
+  margin: 0.5rem 0;
+  color: #4a5568;
+}
+
+.file-types {
+  font-size: 0.9rem;
+  color: #718096;
+}
+
+.upload-controls {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.clear-all-btn {
+  background: #e53e3e;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  transition: background 0.3s ease;
+}
+
+.clear-all-btn:hover {
+  background: #c53030;
+}
+
+.clear-all-container {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+/* レイアウトコントロール */
+.layout-controls {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.control-section {
+  margin-bottom: 1.5rem;
+}
+
+.control-section:last-child {
+  margin-bottom: 0;
+}
+
+.control-section h3 {
+  margin: 0 0 1rem 0;
+  color: #2d3748;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.control-group {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.control-group label {
+  font-weight: 500;
+  color: #4a5568;
+  font-size: 0.9rem;
+}
+
+.control-group input,
+.control-group select {
+  padding: 0.5rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  transition: border-color 0.3s ease;
+}
+
+.control-group input:focus,
+.control-group select:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.format-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.format-buttons button {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid #e2e8f0;
+  background: white;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.format-buttons button.active {
+  background: #667eea;
+  color: white;
+  border-color: #667eea;
+}
+
+.format-buttons button:hover:not(.active) {
+  background: #f7fafc;
+  border-color: #cbd5e0;
+}
+
+/* エクスポートパネル */
+.export-panel {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.export-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.export-btn {
+  background: #48bb78;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: background 0.3s ease;
+}
+
+.export-btn:hover:not(:disabled) {
+  background: #38a169;
+}
+
+.export-btn:disabled {
+  background: #cbd5e0;
+  cursor: not-allowed;
+}
+
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.copy-btn {
+  background: #4299e1;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: background 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.copy-btn:hover:not(:disabled) {
+  background: #3182ce;
+}
+
+.copy-btn:disabled {
+  background: #cbd5e0;
+  cursor: not-allowed;
+}
+
+.export-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.export-note {
+  margin: 1rem 0 0 0;
+  padding: 0.75rem;
+  background: #fed7d7;
+  color: #c53030;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* 画像グリッド */
+.image-grid-container {
+  width: 100%;
+}
+
+.image-grid {
+  width: 100%;
+  background: white;
+  border-radius: 8px;
+  overflow: visible; /* オーバーフローを可視化 */
+}
+
+.grid-item {
+  position: relative;
+  min-height: 200px;
+  transition: all 0.2s ease;
+}
+
+.grid-item:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.grid-item img {
+  transition: none; /* 拡大アニメーションを削除 */
+}
+
+.empty-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  font-style: italic;
+  transition: all 0.2s ease;
+}
+
+.empty-cell:hover {
+  background-color: #edf2f7 !important;
+  border-color: #667eea !important;
+}
+
+/* 削除ボタンとドラッグハンドルのホバーエフェクト */
+.remove-btn:hover {
+  background: #c82333 !important;
+  transform: scale(1.1);
+}
+
+.drag-handle:hover {
+  background: rgba(0, 0, 0, 0.8) !important;
+  transform: scale(1.1);
+}
+
+/* ドラッグ中のスタイル */
+.grid-item:active {
+  cursor: grabbing;
+}
+
+/* キャプションエリアの改善 */
+.image-grid textarea:focus {
+  background: rgba(102, 126, 234, 0.05) !important;
+  border: 1px solid #667eea !important;
+  border-radius: 4px;
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 1024px) {
+  .app-main {
+    flex-direction: column;
+    padding: 1rem;
+  }
+  
+  .sidebar {
+    width: 100%;
+  }
+  
+  .app-header h1 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-header {
+    padding: 1rem;
+  }
+  
+  .app-header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .app-header p {
+    font-size: 1rem;
+  }
+  
+  .layout-controls,
+  .export-panel {
+    padding: 1rem;
+  }
+}
