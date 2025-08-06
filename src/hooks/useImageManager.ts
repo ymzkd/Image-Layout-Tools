@@ -13,8 +13,6 @@ export const useImageManager = () => {
   const [images, setImages] = useState<ImageItem[]>([]);
 
   const addImages = useCallback((files: FileList | File[]) => {
-    const newImages: ImageItem[] = [];
-    
     Array.from(files).forEach((file) => {
       if (file.type.startsWith('image/')) {
         const url = URL.createObjectURL(file);

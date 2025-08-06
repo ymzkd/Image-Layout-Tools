@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { FlexibleImageGrid } from './components/FlexibleImageGrid';
 import { LayoutControls } from './components/LayoutControls';
 import { ExportPanel } from './components/ExportPanel';
@@ -27,7 +27,7 @@ function App() {
 
   const { toasts, showSuccess, showError, removeToast } = useToast();
 
-  const gridRef = useRef<HTMLDivElement>(null);
+  const gridRef = useRef<HTMLDivElement | null>(null);
 
   return (
     <div className="app">

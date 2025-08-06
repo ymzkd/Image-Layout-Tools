@@ -1,5 +1,5 @@
-import React, { useState, useRef } from 'react';
-import { X, Move, Upload, Trash2 } from 'lucide-react';
+import React, { useState } from 'react';
+import { X, Move, Upload } from 'lucide-react';
 import { MathCaption } from './MathCaption';
 
 interface ImageItem {

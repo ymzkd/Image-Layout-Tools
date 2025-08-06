@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Type, Settings } from 'lucide-react';
+import { Grid, Type } from 'lucide-react';
 
 interface LayoutConfig {
   rows: number;
