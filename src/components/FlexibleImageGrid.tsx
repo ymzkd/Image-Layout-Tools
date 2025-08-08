@@ -66,6 +66,10 @@ export const FlexibleImageGrid: React.FC<FlexibleImageGridProps> = ({
   const handleDragStart = (e: React.DragEvent, imageIndex: number) => {
     setDraggedIndex(imageIndex);
     e.dataTransfer.effectAllowed = 'move';
+    // 内部ドラッグ識別用のカスタムMIMEを設定
+    try {
+      e.dataTransfer.setData('application/x-internal-drag-index', String(imageIndex));
+    } catch {}
   };
 
   const handleDragOver = (e: React.DragEvent, rowIndex: number, colIndex: number) => {
@@ -80,26 +84,52 @@ export const FlexibleImageGrid: React.FC<FlexibleImageGridProps> = ({
 
   const handleDrop = (e: React.DragEvent, rowIndex: number, colIndex: number) => {
     e.preventDefault();
-    
-    if (e.dataTransfer.files.length > 0) {
-      onImagesAdded(e.dataTransfer.files);
-    } else if (draggedIndex !== null) {
-      // 新しいインデックスを計算
-      const targetIndex = rows.slice(0, rowIndex).reduce((acc, row) => acc + row.length, 0) + colIndex;
-      if (draggedIndex !== targetIndex) {
-        onReorderImages(draggedIndex, targetIndex);
-      }
+    // 内部ドラッグ（並べ替え）を最優先で処理
+    const types = Array.from(e.dataTransfer.types || []);
+    const hasInternal = types.includes('application/x-internal-drag-index');
+    let sourceIndex: number | null = draggedIndex;
+    if (hasInternal) {
+      const data = e.dataTransfer.getData('application/x-internal-drag-index');
+      const parsed = Number.parseInt(data, 10);
+      if (!Number.isNaN(parsed)) sourceIndex = parsed;
     }
-    
+
+    if (sourceIndex !== null) {
+      const targetIndex = rows.slice(0, rowIndex).reduce((acc, row) => acc + row.length, 0) + colIndex;
+      if (sourceIndex !== targetIndex) {
+        onReorderImages(sourceIndex, targetIndex);
+      }
+    } else if (e.dataTransfer.files.length > 0) {
+      // 外部ファイルのドロップ時のみ追加
+      onImagesAdded(e.dataTransfer.files);
+    }
+
     setDraggedIndex(null);
     setDropTarget(null);
   };
 
-  const handleFileDropOnEmpty = (e: React.DragEvent) => {
+  const handleFileDropOnEmpty = (e: React.DragEvent, rowIndex: number, colIndex: number) => {
     e.preventDefault();
-    if (e.dataTransfer.files.length > 0) {
+    // 内部移動を優先（空スロットへの並べ替え）
+    const types = Array.from(e.dataTransfer.types || []);
+    const hasInternal = types.includes('application/x-internal-drag-index');
+    let sourceIndex: number | null = draggedIndex;
+    if (hasInternal) {
+      const data = e.dataTransfer.getData('application/x-internal-drag-index');
+      const parsed = Number.parseInt(data, 10);
+      if (!Number.isNaN(parsed)) sourceIndex = parsed;
+    }
+
+    if (sourceIndex !== null) {
+      const targetIndex = rows.slice(0, rowIndex).reduce((acc, row) => acc + row.length, 0) + colIndex;
+      if (sourceIndex !== targetIndex) {
+        onReorderImages(sourceIndex, targetIndex);
+      }
+    } else if (e.dataTransfer.files.length > 0) {
       onImagesAdded(e.dataTransfer.files);
     }
+
+    setDraggedIndex(null);
     setDropTarget(null);
   };
 
@@ -186,6 +216,7 @@ export const FlexibleImageGrid: React.FC<FlexibleImageGridProps> = ({
             src={image.url}
             alt={`Image ${globalIndex + 1}`}
             style={imageStyle}
+            draggable={false}
           />
           
           {/* 改善された削除ボタン */}
@@ -255,7 +286,7 @@ export const FlexibleImageGrid: React.FC<FlexibleImageGridProps> = ({
         }}
         onDragOver={(e) => handleDragOver(e, rowIndex, colIndex)}
         onDragLeave={handleDragLeave}
-        onDrop={handleFileDropOnEmpty}
+        onDrop={(e) => handleFileDropOnEmpty(e, rowIndex, colIndex)}
         onClick={() => {
           const input = document.createElement('input');
           input.type = 'file';
